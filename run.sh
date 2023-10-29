@@ -1,16 +1,18 @@
-docker volume create services
-docker run --name thrift-generator -v ./thrift:/services -w /services thrift:latest thrift --gen java services.thrift
-docker cp thrift-generator:/services/gen-java ./server
-docker volume rm services
-docker stop thrift-generator
-docker rm thrift-generator
+sudo docker volume create services
+sudo docker run --name thrift-generator -v ./thrift:/services -w /services thrift:latest thrift --gen java services.thrift
+sudo docker cp thrift-generator:/services/gen-java/server/atm ./server
+sudo docker volume rm services
+sudo docker stop thrift-generator
+sudo docker rm thrift-generator
 
-docker volume create services
-docker run --name thrift-generator -v ./thrift:/services -w /services thrift:latest thrift --gen py services.thrift
-docker cp thrift-generator:/services/gen-py ./client
-docker volume rm services
-docker stop thrift-generator
-docker rm thrift-generator
+sudo docker volume create services
+sudo docker run --name thrift-generator -v ./thrift:/services -w /services thrift:latest thrift --gen py services.thrift
+sudo docker cp thrift-generator:/services/gen-py/atm ./client
+sudo docker volume rm services
+sudo docker stop thrift-generator
+sudo docker rm thrift-generator
 
-rm -rf ./thrift/gen-java
-rm -rf /S /Q ./thrift/gen-py
+sudo rm -rf ./thrift/gen-java
+sudo rm -rf ./thrift/gen-py
+
+sudo docker-compose up -d
