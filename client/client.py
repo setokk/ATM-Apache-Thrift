@@ -40,24 +40,24 @@ def menu():
 
 def get_result(client, code, user_id, amount):
     match code:
-        case Code.WITHDRAW:
+        case Code.WITHDRAW.value:
             return client.withdraw(user_id, amount)
-        case Code.DEPOSIT:
+        case Code.DEPOSIT.value:
             return client.deposit(user_id, amount)
-        case Code.BALANCE:
+        case Code.BALANCE.value:
             return client.get_balance(user_id)
         case _:
             return -1
 
 def process_result(result):
     match result:
-        case StatusCode.OK:
+        case StatusCode.OK.value:
             return 'Successful!'
-        case StatusCode.BAD_REQUEST:
+        case StatusCode.BAD_REQUEST.value:
             return 'Request body is invalid...'
-        case StatusCode.USER_NOT_FOUND:
+        case StatusCode.USER_NOT_FOUND.value:
             return 'User was not found...'
-        case StatusCode.INSUFFICIENT_BALANCE:
+        case StatusCode.INSUFFICIENT_BALANCE.value:
             return 'Insufficient balance...'
         case _:
             return 'Unrecognized status code'
@@ -83,10 +83,9 @@ if __name__ == '__main__':
     # Show menu in a while loop and get code
     while True:
         code = menu()
-        print(f'{code}')
         # Get input for amount
         amount = -1.0
-        if code != Code.BALANCE:
+        if code != Code.BALANCE.value:
             while True:
                 amount_str = input('Please enter an amount: ')
                 try:
@@ -98,10 +97,10 @@ if __name__ == '__main__':
 
         # Call appropriate function based on code provided
         result = get_result(client, code, user_id, amount)
-        print(f'{result}')
+
         # Produce message
         message = process_result(result)
-        if code == Code.BALANCE:
+        if code == Code.BALANCE.value:
             message = f'Balance is {result}'
         print(f'Status: {message}')
 
